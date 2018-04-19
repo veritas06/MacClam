@@ -13,6 +13,11 @@ changed files, which are then sent to clamd for scanning.  It also
 provides a way to scan individual files or directories on demand from
 the command line.
 
+## veritas06's Changes ##
+I made two changes to this script, one to download from the correct
+location, & the other to successfully configure the package with
+Homebrew's OpenSSL package.
+
 ## Prerequisites ##
 
 You will need to have Apple's <a
