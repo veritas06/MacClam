@@ -30,6 +30,9 @@ popd > /dev/null
 # You can customize the following variables to suite your tastes.  If
 # you change them, run this script again to apply your settings.
 # 
+# 20180419: SMc: Making two changes:
+#   - Correcting the with the ClamAV package download, variable: CLAMAV_DOWNLOAD_LINK
+#   - Edit to the "./configure" step to allow installation when OpenSSL is installed by Homebrew.
 
 
 INSTALLDIR="$HOME/MacClam"
@@ -166,7 +169,8 @@ CLAMAV_SRC="$INSTALLDIR/clamav-$CLAMAV_VER"
 CLAMAV_INS="$INSTALLDIR/clamav-installation-$CLAMAV_VER"
 
 #CLAMAV_DOWNLOAD_LINK=http://sourceforge.net/projects/clamav/files/clamav/$CLAMAV_VER/clamav-$CLAMAV_VER.tar.gz/download
-CLAMAV_DOWNLOAD_LINK="http://nbtelecom.dl.sourceforge.net/project/clamav/clamav/$CLAMAV_VER/clamav-$CLAMAV_VER.tar.gz"
+#CLAMAV_DOWNLOAD_LINK="http://nbtelecom.dl.sourceforge.net/project/clamav/clamav/$CLAMAV_VER/clamav-$CLAMAV_VER.tar.gz"
+CLAMAV_DOWNLOAD_LINK="https://www.clamav.net/downloads/production/clamav-$CLAMAV_VER.tar.gz"
 
 echo -n "Has clamav-$CLAMAV_VER been downloaded?..."
 if [ -f "$CLAMAV_TAR" ] && tar -tf "$CLAMAV_TAR" > /dev/null
@@ -197,7 +201,9 @@ then
 else
     echo "No.  Configuring it."
     cd "$CLAMAV_SRC"
-    ./configure --disable-dependency-tracking --enable-llvm=no --enable-clamdtop --with-user=_clamav --with-group=_clamav --enable-all-jit-targets --prefix="$CLAMAV_INS"
+    # ./configure --disable-dependency-tracking --enable-llvm=no --enable-clamdtop --with-user=_clamav --with-group=_clamav --enable-all-jit-targets --prefix="$CLAMAV_INS"
+    # If you have Homebrew's OpenSSL, the below "./configure" command needs to be run instead of the above, for OpenSSL to be detected properly.
+    ./configure --disable-dependency-tracking --enable-llvm=no --enable-clamdtop --with-user=_clamav --with-group=_clamav --enable-all-jit-targets --prefix="$CLAMAV_INS" -with-openssl=/usr/local/opt/openssl
 fi
 
 echo -n "Has clamav-$CLAMAV_VER been built?..."
