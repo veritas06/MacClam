@@ -80,7 +80,7 @@ set -e
 
 if [ "$1" == "uninstall" ]
 then
-    read -r -p "Are you sure you want to install MacClam? [y/N] " response
+    read -r -p "Are you sure you want to remove MacClam? [y/N] " response
     if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]
     then
         echo "Uninstalling MacClam"
